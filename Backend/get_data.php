@@ -1,7 +1,10 @@
 <?php
 	include_once('config.php');
+	header("Access-Control-Allow-Origin: http://localhost:3000");
+	header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+	header("Access-Control-Allow-Headers: Content-Type, Authorization");
 	$sql = "SELECT * FROM backend.students;";
-	$get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+	$get_data_query = mysqli_query($db, $sql) or die(mysqli_error($db));
 		if(mysqli_num_rows($get_data_query)!=0){
 		$result = array();
 		
@@ -14,7 +17,6 @@
 	else{
 		$json = array("status" => 0, "error" => "Patients not found!");
 	}
-@mysqli_close($conn);
-// Set Content-type to JSON
+
 header('Content-type: application/json');
 echo json_encode($json);
